@@ -27,6 +27,8 @@ Sys.setenv(USE_CXX14 = 1)
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
+start.time <- Sys.time()
+
 # Check for output subdirectories
 check_subdir <- function(paths) {
   for (i in seq_along(paths)) {
@@ -255,7 +257,11 @@ pasi75_stan <- stan("ML-NMR_binomial_probit_twoparbin.stan",
   pars = c("beta0", "beta1", "beta2", "gamma", "nprime", "pprime",
            "p_bar_cum", "p2_bar_cum",
            "log_lik", "resdev", "r_hat", "lp__"),
-  iter = 100,
-  chains = 1,
-  init_r = 0)
+  iter = 10000,
+  chains = 2,
+  init_r = 0.5)
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
 

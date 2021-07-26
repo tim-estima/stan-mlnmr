@@ -1,4 +1,4 @@
-FROM rstatstartu/rstanverse
+FROM nicholasjclark/brms
 
 # system libraries of general use
 RUN apt-get update && apt-get install -y \
@@ -19,8 +19,10 @@ RUN apt-get update && apt-get install -y \
     libgsl0-dev 
 
 # install basic shiny functionality to R
-RUN R -e "install.packages(c('tidyverse', 'rstan', 'shinystan', 'broom', 'randtoolbox', 'copula', \
-'xtable', 'boot', 'paralell', 'logitnorm', 'broom.mixed'))"
+RUN R -e "install.packages(c('tidyverse', 'shinystan', 'broom', 'randtoolbox', 'copula', \
+'xtable', 'boot', 'paralell', 'logitnorm', 'broom.mixed', 'Rccp'))"
+
+RUN R -e "install.packages(c('tidyverse', 'Rccp'))"
 
 RUN mkdir /analysis
 COPY  analysis /analysis
